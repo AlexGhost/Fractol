@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:34:34 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/16 19:23:25 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/17 15:37:58 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int			main(void)
 {
-	ft_putendl("HALLO");
+	ft_putendl("--- Welcome to Fractolol ---");
+	fr_create_window();
 	return (0);
 }
