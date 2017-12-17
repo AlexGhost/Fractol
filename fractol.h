@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/17 18:12:30 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/17 19:06:10 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct		s_mlx
 	void			*img;
 	int				*imgstr;
 	int				actual_color;
+	int				mode;
 }					t_mlx;
 
 typedef struct		s_img
@@ -45,7 +46,7 @@ typedef struct		s_img
 	int				endian;
 }					t_img;
 
-void				fr_create_window(void);
+void				fr_create_window(int mode);
 void				fr_putpixel(int *imgstr, int x, int y, int color);
 
 #endif

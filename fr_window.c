@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:29:23 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/17 18:45:00 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/17 19:06:23 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int		colormania(t_mlx *smlx)
 	return (0);
 }
 
-void			fr_create_window(void)
+void			fr_create_window(int mode)
 {
 	t_mlx		smlx;
 	t_img		i;
@@ -60,6 +60,7 @@ void			fr_create_window(void)
 	smlx.img = mlx_new_image(smlx.mlx, WIN_WIDTH, WIN_HEIGHT);
 	smlx.imgstr = (int*)mlx_get_data_addr(smlx.img, &i.bpp, &i.s_l, &i.endian);
 	smlx.actual_color = 0;
+	smlx.mode = mode;
 	mlx_key_hook(smlx.win, keyevent, 0);
 	mlx_hook(smlx.win, 17, 17, exitfractol, 0);
 	mlx_loop_hook(smlx.mlx, colormania, (void*) &smlx);
