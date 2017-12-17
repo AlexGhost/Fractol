@@ -1,7 +1,8 @@
 NAME = fractol
 CFLAG = -Wall -Werror -Wextra
-CC = gcc $(CFLAG)
-SRC = main.c fr_window.c
+##CC = gcc $(CFLAG)
+CC = gcc
+SRC = main.c fr_window.c fr_draw.c
 OBJ = $(SRC:.c=.o)
 POBJ = $(addprefix obj/,$(OBJ))
 
