@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:29:23 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/17 18:37:24 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/17 18:45:00 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int		colormania(t_mlx *smlx)
 		y++;
 	}
 	mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
-	smlx->actual_color += tan(smlx->actual_color += 0x00010105);
+	smlx->actual_color += sin(smlx->actual_color += 0x00010105);
 	return (0);
 }
 
