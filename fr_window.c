@@ -6,13 +6,13 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:29:23 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/17 18:18:27 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/17 18:37:24 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-/*static int		exitfractol(void)
+static int		exitfractol(void)
 {
 	ft_putendl("fractol shutting down");
 	exit(0);
@@ -49,7 +49,7 @@ static int		colormania(t_mlx *smlx)
 	smlx->actual_color += tan(smlx->actual_color += 0x00010105);
 	return (0);
 }
-*/
+
 void			fr_create_window(void)
 {
 	t_mlx		smlx;
@@ -57,11 +57,11 @@ void			fr_create_window(void)
 
 	smlx.mlx = mlx_init();
 	smlx.win = mlx_new_window(smlx.mlx, WIN_WIDTH, WIN_HEIGHT, "fractolol");
-	//smlx.img = mlx_new_image(smlx.mlx, WIN_WIDTH, WIN_HEIGHT);
-	//smlx.imgstr = (int*)mlx_get_data_addr(smlx.img, &i.bpp, &i.s_l, &i.endian);
-	//smlx.actual_color = 0;
-	//mlx_key_hook(smlx.win, keyevent, 0);
-	//mlx_hook(smlx.win, 17, 17, exitfractol, 0);
-	//mlx_loop_hook(smlx.mlx, colormania, (void*) &smlx);
+	smlx.img = mlx_new_image(smlx.mlx, WIN_WIDTH, WIN_HEIGHT);
+	smlx.imgstr = (int*)mlx_get_data_addr(smlx.img, &i.bpp, &i.s_l, &i.endian);
+	smlx.actual_color = 0;
+	mlx_key_hook(smlx.win, keyevent, 0);
+	mlx_hook(smlx.win, 17, 17, exitfractol, 0);
+	mlx_loop_hook(smlx.mlx, colormania, (void*) &smlx);
 	mlx_loop(smlx.mlx);
 }
