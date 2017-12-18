@@ -6,11 +6,11 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:34:34 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/18 14:50:25 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/18 15:08:16 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 static void		write_usage(void)
 {

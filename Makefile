@@ -3,6 +3,7 @@ CFLAG = -Wall -Werror -Wextra
 ##CC = gcc $(CFLAG)
 CC = gcc
 SRC = main.c fr_window.c fr_draw.c fr_colormania.c fr_mandelbrot.c
+PSRC = $(addprefix src/,$(SRC))
 OBJ = $(SRC:.c=.o)
 POBJ = $(addprefix obj/,$(OBJ))
 
@@ -19,7 +20,7 @@ submake :
 	@$(MAKE) -C minilibx_macos/
 	@$(MAKE) -C libft/
 
-obj/%.o: %.c
+obj/%.o: src/%.c
 	@printf "\r\033[K""\033[36m - Compilation de \033[0m$<\033[0m"
 	@mkdir -p obj
 	@$(CC) -o $@ -c $<
