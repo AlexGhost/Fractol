@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/18 15:08:30 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/18 16:50:05 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,19 @@ typedef struct		s_img
 	int				endian;
 }					t_img;
 
+typedef struct		s_pong
+{
+	t_mlx			*smlx;
+	int				ballx;
+	int				bally;
+	int				d_x;
+	int				d_y;
+}					t_pong;
+
 void				fr_create_window(int mode);
 void				fr_putpixel(int *imgstr, int x, int y, int color);
 void				fr_colormania(t_mlx *smlx);
 void				fr_mandelbrot(t_mlx *smlx);
+void				fr_pong(t_mlx *smlx);
 
 #endif

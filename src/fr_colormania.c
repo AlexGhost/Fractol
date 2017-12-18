@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:47:30 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/18 15:07:33 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/18 16:48:39 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ static int			loopmania(t_mlx *smlx)
 
 void				fr_colormania(t_mlx *smlx)
 {
-	mlx_loop_hook(smlx->mlx, loopmania, (void*) smlx);
+	mlx_loop_hook(smlx->mlx, loopmania, (void*)smlx);
 }
-
