@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 15:45:16 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/18 16:51:31 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/18 16:58:16 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void				fr_pong(t_mlx *smlx)
 	pong = (t_pong*)malloc(sizeof(t_pong));
 	pong->ballx = 50;
 	pong->bally = 50;
-	pong->d_x = 6;
-	pong->d_y = 3;
+	pong->d_x = 4;
+	pong->d_y = 2;
 	pong->smlx = smlx;
 	mlx_loop_hook(smlx->mlx, looppong, (void*)pong);
 }
