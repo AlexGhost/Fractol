@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:34:34 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/17 19:05:36 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/18 14:50:25 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void		write_usage(void)
 {
 	ft_putendl("usage: ./fractol <mode>");
+	ft_putendl("\tmode 0 : Colormania");
 	ft_putendl("\tmode 1 : Mandelbrot");
 	exit(0);
 }
@@ -27,12 +28,14 @@ int				main(int ac, char **av)
 		write_usage();
 	else
 		mode = ft_atoi(av[1]);
-	if (mode != 1)
+	if (mode < 0 || mode > 1)
 		write_usage();
 	else
 	{
 		ft_putendl("--- Welcome to Fractolol ---");
-		if (mode == 1)
+		if (mode == 0)
+			ft_putendl("Colormania");
+		else if (mode == 1)
 			ft_putendl("Mandelbrot");
 		fr_create_window(mode);
 	}

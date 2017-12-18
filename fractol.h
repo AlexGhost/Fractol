@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/17 19:06:10 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/18 14:49:08 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ typedef struct		s_img
 
 void				fr_create_window(int mode);
 void				fr_putpixel(int *imgstr, int x, int y, int color);
+void				fr_colormania(t_mlx *smlx);
+void				fr_mandelbrot(t_mlx *smlx);
 
 #endif
