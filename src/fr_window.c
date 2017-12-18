@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:29:23 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/18 15:07:20 by acourtin         ###   ########.fr       */
+/*   Updated: 2017/12/18 15:16:01 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,27 @@ static int		keyevent(int keycode)
 	return (0);
 }
 
+static void		fractol_init(t_mlx *smlx, t_img *i, int mode)
+{
+	smlx->mlx = mlx_init();
+	smlx->win = mlx_new_window(smlx->mlx, WIN_WIDTH, WIN_HEIGHT, "fractolol");
+	smlx->img = mlx_new_image(smlx->mlx, WIN_WIDTH, WIN_HEIGHT);
+	smlx->imgstr = (int*)mlx_get_data_addr(smlx->img, &i->bpp, &i->s_l, &i->endian);
+	smlx->actual_color = 0x00FFFFFF;
+	smlx->mode = mode;
+}
+
 void			fr_create_window(int mode)
 {
 	t_mlx		smlx;
 	t_img		i;
 
-	smlx.mlx = mlx_init();
-	smlx.win = mlx_new_window(smlx.mlx, WIN_WIDTH, WIN_HEIGHT, "fractolol");
-	smlx.img = mlx_new_image(smlx.mlx, WIN_WIDTH, WIN_HEIGHT);
-	smlx.imgstr = (int*)mlx_get_data_addr(smlx.img, &i.bpp, &i.s_l, &i.endian);
-	smlx.actual_color = 0x00FFFFFF;
-	smlx.mode = mode;
+	fractol_init(&smlx, &i, mode);
 	mlx_key_hook(smlx.win, keyevent, 0);
 	mlx_hook(smlx.win, 17, 17, exitfractol, 0);
 	if (mode == 0)
 		fr_colormania(&smlx);
 	else if (mode == 1)
 		fr_mandelbrot(&smlx);
-	//mlx_loop_hook(smlx.mlx, colormania, (void*) &smlx);
 	mlx_loop(smlx.mlx);
 }
