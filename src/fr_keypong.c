@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 12:01:14 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/04 13:07:39 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/04 13:16:57 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void			drawball(t_pong *pong, int x, int y, int color)
 			0, 0);
 }
 
-static int			mouseevent(int button, long x, long y, t_pong *pong)
+static int			mouseevent(int button, int x, int y, t_pong *pong)
 {
 	ft_putstr("mouse x: ");
 	ft_putnbr(x);
@@ -51,19 +51,22 @@ static int			looppong(t_pong *pong)
 
 static int			keyevent(int keycode, t_pong *pong)
 {
+	int speed;
+
+	speed = 10;
 	if (keycode == BUTTON_ESCAPE)
 	{
 		ft_putendl("fractol shutting down");
 		exit(0);
 	}
 	else if (keycode == BUTTON_ARROW_UP && pong->bally > 15)
-		pong->d_y = -1;
+		pong->d_y = -speed;
 	else if (keycode == BUTTON_ARROW_DOWN && pong->bally < WIN_HEIGHT - 15)
-		pong->d_y = 1;
+		pong->d_y = speed;
 	else if (keycode == BUTTON_ARROW_LEFT && pong->ballx > 15)
-		pong->d_x = -1;
+		pong->d_x = -speed;
 	else if (keycode == BUTTON_ARROW_RIGHT && pong->ballx < WIN_WIDTH - 15)
-		pong->d_x = 1;
+		pong->d_x = speed;
 	drawball(pong, pong->ballx, pong->bally, 0x00FFFFFF);
 	drawball(pong, pong->ballx + pong->d_x, pong->bally + pong->d_y, \
 			0x00FF0000);
