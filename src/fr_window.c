@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:29:23 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/18 16:51:45 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/04 18:52:39 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,25 @@ static void		fractol_init(t_mlx *smlx, t_img *i, int mode)
 			&i->endian);
 	smlx->actual_color = 0x00FFFFFF;
 	smlx->mode = mode;
+}
+
+void			fr_clear_window(t_mlx *smlx, int color)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < WIN_HEIGHT)
+	{
+		x = 0;
+		while (x < WIN_WIDTH)
+		{
+			fr_putpixel(smlx->imgstr, x, y, color);
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 }
 
 void			fr_create_window(int mode)
