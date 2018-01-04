@@ -18,6 +18,7 @@ static void		write_usage(void)
 	ft_putendl("\tmode 0 : Colormania");
 	ft_putendl("\tmode 1 : Mandelbrot");
 	ft_putendl("\tmode 4 : Pong");
+	ft_putendl("\tmode 5 : KeyPong");
 	exit(0);
 }
 
@@ -29,7 +30,7 @@ int				main(int ac, char **av)
 		write_usage();
 	else
 		mode = ft_atoi(av[1]);
-	if (mode < 0 || mode > 4)
+	if (mode < 0 || mode > 5)
 		write_usage();
 	else
 	{
@@ -40,6 +41,8 @@ int				main(int ac, char **av)
 			ft_putendl("Mandelbrot");
 		else if (mode == 4)
 			ft_putendl("Pong!");
+		else if (mode == 5)
+			ft_putendl("Key Pong!");
 		fr_create_window(mode);
 	}
 	return (0);

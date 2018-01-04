@@ -17,8 +17,8 @@
 # include "../minilibx_macos/mlx.h"
 # include <math.h>
 
-# define WIN_WIDTH 1800
-# define WIN_HEIGHT 1200
+# define WIN_WIDTH 1400
+# define WIN_HEIGHT 800
 # define BUTTON_ESCAPE 53
 # define BUTTON_W 13
 # define BUTTON_D 2
@@ -60,5 +60,6 @@ void				fr_putpixel(int *imgstr, int x, int y, int color);
 void				fr_colormania(t_mlx *smlx);
 void				fr_mandelbrot(t_mlx *smlx);
 void				fr_pong(t_mlx *smlx);
+void				fr_keypong(t_mlx *smlx);
 
 #endif

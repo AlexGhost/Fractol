@@ -54,5 +54,7 @@ void			fr_create_window(int mode)
 		fr_mandelbrot(&smlx);
 	else if (mode == 4)
 		fr_pong(&smlx);
+	else if (mode == 5)
+		fr_keypong(&smlx);
 	mlx_loop(smlx.mlx);
 }
