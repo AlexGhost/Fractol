@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:33:55 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/05 18:01:34 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/05 20:25:59 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void			pixfractal(t_mlx *smlx, int i, int pix[2])
 **		c:		tmp of x y and z
 */
 
-static void			*draw_mandelbrot(void *p)
+/*static void			*draw_mandelbrot(void *p)
 {
 	t_fractal_thread	*arg;
 	t_mandelbrot		m;
@@ -57,45 +57,61 @@ static void			*draw_mandelbrot(void *p)
 			}
 			pixfractal(arg->smlx, i, m.pix);
 		}
-	return (0);
+	return (NULL);
+}*/
+
+static void			*draw_mandelbrot(void *p)
+{
+	t_fractal_thread	*arg;
+	t_mandelbrot		m;
+	int					i;
+
+	arg = p;
+	m.pix[1] = -1;
+	while (++m.pix[1] < WIN_HEIGHT && (m.pix[0] = -1))
+		while (++m.pix[0] < WIN_WIDTH && (i = -1))
+		{
+			m.z[0] = (m.pix[0] + arg->smlx->offset_x * arg->smlx->zoom / 400 \
+					- (WIN_WIDTH / 2.0)) / arg->smlx->zoom;
+			m.z[1] = (m.pix[1] + arg->smlx->offset_y * arg->smlx->zoom / 400 \
+					- (WIN_HEIGHT / 2.0)) / arg->smlx->zoom;
+			m.tmp[0] = m.z[0];
+			m.tmp[1] = m.z[1];
+			while (++i < NB_ITERATION && m.z[0] * m.z[0] + m.z[1] * m.z[1] < 4)
+			{
+				m.tmp[2] = m.z[0];
+				m.z[0] = m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0];
+				m.z[1] = 2 * m.tmp[2] * m.z[1] + m.tmp[1];
+			}
+			pixfractal(arg->smlx, i, m.pix);
+		}
+	return (NULL);
 }
 
 static void			init_mandelbrot(t_mlx *smlx)
 {
-	t_fractal_thread	*arg[4];
-	pthread_t			thread[4];
+	t_fractal_thread	**arg;
+	pthread_t			*thread;
 	int					i;
+	int					size;
 
 	i = 0;
-	while (i < 4)
+	thread = (pthread_t*)malloc(sizeof(pthread_t) * NB_THREADS);
+	arg = (t_fractal_thread**)malloc(sizeof(t_fractal_thread*) * NB_THREADS);
+	size = (WIN_WIDTH * WIN_HEIGHT) / NB_THREADS;
+	while (i < 1)
 	{
 		arg[i] = (t_fractal_thread*)malloc(sizeof(t_fractal_thread));
 		arg[i]->smlx = smlx;
-		if (i == 0 || i == 2)
-		{
-			arg[i]->pix_start[0] = 0;
-			arg[i]->pix_end[0] = WIN_WIDTH / 2;
-		}
-		else
-		{
-			arg[i]->pix_start[0] = WIN_WIDTH / 2;
-			arg[i]->pix_end[0] = WIN_WIDTH;
-		}
-		if (i == 2 || i == 3)
-		{
-			arg[i]->pix_start[1] = WIN_HEIGHT / 2;
-			arg[i]->pix_end[1] = WIN_HEIGHT;
-		}
-		else
-		{
-			arg[i]->pix_start[1] = 0;
-			arg[i]->pix_end[1] = WIN_HEIGHT / 2;
-		}
+		arg[i]->pix_start = i * size;
+		arg[i]->pix_end = arg[i]->pix_start + size;;
 		pthread_create(&thread[i], NULL, draw_mandelbrot, arg[i]);
 		pthread_join(thread[i], NULL);
 		free(arg[i]);
 		i++;
 	}
+	free(thread);
+	free(arg);
 }
 
 static int			keyevent(int keycode, t_mlx *smlx)
