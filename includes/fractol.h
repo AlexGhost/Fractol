@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/05 15:31:47 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/05 18:03:23 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
 # include <math.h>
+# include <pthread.h>
 
 # define WIN_WIDTH 1400
-# define WIN_HEIGHT 800
-# define NB_ITERATION 50
-# define THREADS 256
+# define WIN_HEIGHT 1000
+# define NB_ITERATION 40
 # define BUTTON_ESCAPE 53
 # define BUTTON_W 13
 # define BUTTON_D 2
@@ -45,6 +45,20 @@ typedef struct		s_mlx
 	float			offset_y;
 	float			zoom;
 }					t_mlx;
+
+typedef struct		s_fractal_thread
+{
+	t_mlx			*smlx;
+	int				pix_start[2];
+	int				pix_end[2];
+}					t_fractal_thread;
+
+typedef struct		s_mandelbrot
+{
+	int				pix[2];
+	float			z[2];
+	float			tmp[3];
+}					t_mandelbrot;
 
 typedef struct		s_img
 {

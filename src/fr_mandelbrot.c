@@ -6,19 +6,24 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:33:55 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/05 15:34:41 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/05 18:01:34 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
+/*
+** start color:	003366
+** end color:	FFFFFF
+*/
+
 static void			pixfractal(t_mlx *smlx, int i, int pix[2])
 {
 	if (i == NB_ITERATION)
-		smlx->imgstr[pix[0] + (pix[1] * WIN_WIDTH)] = 0x00000000;
+		smlx->imgstr[pix[0] + (pix[1] * WIN_WIDTH)] = 0x00003366;
 	else
 		smlx->imgstr[pix[0] + (pix[1] * WIN_WIDTH)] = \
-			(0x00FF0000 * i) / NB_ITERATION;
+			0x00003366 + ((0x00FFFFFF - 0x00003366) * i * 15);
 }
 
 /*
@@ -27,32 +32,70 @@ static void			pixfractal(t_mlx *smlx, int i, int pix[2])
 **		c:		tmp of x y and z
 */
 
-static void			draw_mandelbrot(t_mlx *smlx)
+static void			*draw_mandelbrot(void *p)
 {
-	int		pix[2];
-	int		i;
-	float	z[2];
-	float	tmp[3];
+	t_fractal_thread	*arg;
+	t_mandelbrot		m;
+	int					i;
 
-	pix[1] = -1;
-	while (++pix[1] < WIN_HEIGHT && (pix[0] = -1))
-		while (++pix[0] < WIN_WIDTH)
+	arg = p;
+	m.pix[1] = arg->pix_start[1] - 1;
+	while (++m.pix[1] < arg->pix_end[1] && (m.pix[0] = arg->pix_start[0] - 1))
+		while (++m.pix[0] < arg->pix_end[0] && (i = -1))
 		{
-			i = -1;
-			z[0] = (pix[0] + smlx->offset_x * smlx->zoom / 400 \
-					- (WIN_WIDTH / 2.0)) / smlx->zoom;
-			z[1] = (pix[1] + smlx->offset_y * smlx->zoom / 400 \
-					- (WIN_HEIGHT / 2.0)) / smlx->zoom;
-			tmp[0] = z[0];
-			tmp[1] = z[1];
-			while (++i < NB_ITERATION && z[0] * z[0] + z[1] * z[1] < 4)
+			m.z[0] = (m.pix[0] + arg->smlx->offset_x * arg->smlx->zoom / 400 \
+					- (WIN_WIDTH / 2.0)) / arg->smlx->zoom;
+			m.z[1] = (m.pix[1] + arg->smlx->offset_y * arg->smlx->zoom / 400 \
+					- (WIN_HEIGHT / 2.0)) / arg->smlx->zoom;
+			m.tmp[0] = m.z[0];
+			m.tmp[1] = m.z[1];
+			while (++i < NB_ITERATION && m.z[0] * m.z[0] + m.z[1] * m.z[1] < 4)
 			{
-				tmp[2] = z[0];
-				z[0] = pow(z[0], 2) - pow(z[1], 2) + tmp[0];
-				z[1] = 2 * tmp[2] * z[1] + tmp[1];
+				m.tmp[2] = m.z[0];
+				m.z[0] = m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0];
+				m.z[1] = 2 * m.tmp[2] * m.z[1] + m.tmp[1];
 			}
-			pixfractal(smlx, i, pix);
+			pixfractal(arg->smlx, i, m.pix);
 		}
+	return (0);
+}
+
+static void			init_mandelbrot(t_mlx *smlx)
+{
+	t_fractal_thread	*arg[4];
+	pthread_t			thread[4];
+	int					i;
+
+	i = 0;
+	while (i < 4)
+	{
+		arg[i] = (t_fractal_thread*)malloc(sizeof(t_fractal_thread));
+		arg[i]->smlx = smlx;
+		if (i == 0 || i == 2)
+		{
+			arg[i]->pix_start[0] = 0;
+			arg[i]->pix_end[0] = WIN_WIDTH / 2;
+		}
+		else
+		{
+			arg[i]->pix_start[0] = WIN_WIDTH / 2;
+			arg[i]->pix_end[0] = WIN_WIDTH;
+		}
+		if (i == 2 || i == 3)
+		{
+			arg[i]->pix_start[1] = WIN_HEIGHT / 2;
+			arg[i]->pix_end[1] = WIN_HEIGHT;
+		}
+		else
+		{
+			arg[i]->pix_start[1] = 0;
+			arg[i]->pix_end[1] = WIN_HEIGHT / 2;
+		}
+		pthread_create(&thread[i], NULL, draw_mandelbrot, arg[i]);
+		pthread_join(thread[i], NULL);
+		free(arg[i]);
+		i++;
+	}
 }
 
 static int			keyevent(int keycode, t_mlx *smlx)
@@ -76,7 +119,7 @@ static int			keyevent(int keycode, t_mlx *smlx)
 		|| keycode == BUTTON_Q || keycode == BUTTON_E)
 	{
 		fr_clear_window(smlx, 0x00000000);
-		draw_mandelbrot(smlx);
+		init_mandelbrot(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	}
 	return (0);
@@ -87,8 +130,7 @@ void				fr_mandelbrot(t_mlx *smlx)
 	smlx->offset_x = -250.0;
 	smlx->offset_y = 0.0;
 	smlx->zoom = 400.0;
-	fr_clear_window(smlx, 0x00000000);
-	draw_mandelbrot(smlx);
+	init_mandelbrot(smlx);
 	mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	mlx_hook(smlx->win, 2, 0, keyevent, (void*)smlx);
 }
