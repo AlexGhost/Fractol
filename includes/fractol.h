@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/04 19:03:27 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/05 15:31:47 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define WIN_WIDTH 1400
 # define WIN_HEIGHT 800
 # define NB_ITERATION 50
+# define THREADS 256
 # define BUTTON_ESCAPE 53
 # define BUTTON_W 13
 # define BUTTON_D 2
@@ -63,7 +64,6 @@ typedef struct		s_pong
 
 void				fr_create_window(int mode);
 void				fr_clear_window(t_mlx *smlx, int color);
-void				fr_putpixel(int *imgstr, int x, int y, int color);
 void				fr_colormania(t_mlx *smlx);
 void				fr_mandelbrot(t_mlx *smlx);
 void				fr_pong(t_mlx *smlx);

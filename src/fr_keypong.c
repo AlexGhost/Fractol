@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 12:01:14 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/04 14:44:30 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/05 15:36:06 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void			drawball(t_pong *pong, int x, int y, int color)
 		i = x - 10;
 		while (i < 20 + (x - 10))
 		{
-			fr_putpixel(pong->smlx->imgstr, i, j, color);
+			pong->smlx->imgstr[i + (j * WIN_WIDTH)] = color;
 			i++;
 		}
 		j++;

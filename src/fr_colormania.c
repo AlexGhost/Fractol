@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:47:30 by acourtin          #+#    #+#             */
-/*   Updated: 2017/12/18 16:48:39 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/05 15:37:40 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int			loopmania(t_mlx *smlx)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			fr_putpixel(smlx->imgstr, x, y, smlx->actual_color);
+			smlx->imgstr[x + (y * WIN_WIDTH)] = smlx->actual_color;
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:33:55 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/04 19:15:12 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/05 15:34:41 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static void			pixfractal(t_mlx *smlx, int i, int pix[2])
 {
 	if (i == NB_ITERATION)
-		fr_putpixel(smlx->imgstr, pix[0], pix[1], 0x00000000);
+		smlx->imgstr[pix[0] + (pix[1] * WIN_WIDTH)] = 0x00000000;
 	else
-		fr_putpixel(smlx->imgstr, pix[0], pix[1], \
-			(0x00FF0000 * i) / NB_ITERATION);
+		smlx->imgstr[pix[0] + (pix[1] * WIN_WIDTH)] = \
+			(0x00FF0000 * i) / NB_ITERATION;
 }
 
 /*
