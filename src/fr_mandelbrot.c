@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:33:55 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 16:42:09 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/07 18:22:56 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,20 @@ static int			mouseevent(int button, int x, int y, t_mlx *smlx)
 
 static int			keyevent(int keycode, t_mlx *smlx)
 {
-	if (keycode == BUTTON_ARROW_UP || keycode == BUTTON_W)
+	if (keycode == BUTTON_W)
 		smlx->offset_y -= 10 * 400 / smlx->zoom;
-	else if (keycode == BUTTON_ARROW_DOWN || keycode == BUTTON_S)
+	else if (keycode == BUTTON_S)
 		smlx->offset_y += 10 * 400 / smlx->zoom;
-	else if (keycode == BUTTON_ARROW_LEFT || keycode == BUTTON_A)
+	else if (keycode == BUTTON_A)
 		smlx->offset_x -= 10 * 400 / smlx->zoom;
-	else if (keycode == BUTTON_ARROW_RIGHT || keycode == BUTTON_D)
+	else if (keycode == BUTTON_D)
 		smlx->offset_x += 10 * 400 / smlx->zoom;
 	else if (keycode == BUTTON_Q)
 		smlx->zoom /= 1.1;
 	else if (keycode == BUTTON_E)
 		smlx->zoom *= 1.1;
-	if (keycode == BUTTON_ARROW_UP || keycode == BUTTON_W \
-		|| keycode == BUTTON_ARROW_DOWN || keycode == BUTTON_S \
-		|| keycode == BUTTON_ARROW_LEFT || keycode == BUTTON_A \
-		|| keycode == BUTTON_ARROW_RIGHT || keycode == BUTTON_D \
-		|| keycode == BUTTON_Q || keycode == BUTTON_E)
+	if (keycode == BUTTON_W || keycode == BUTTON_S || keycode == BUTTON_A \
+		|| keycode == BUTTON_D || keycode == BUTTON_Q || keycode == BUTTON_E)
 	{
 		fr_clear_window(smlx, 0x00000000);
 		draw_mandelbrot(smlx);
