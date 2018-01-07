@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fr_mandelbrot.c                                    :+:      :+:    :+:   */
+/*   fr_julia.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/18 14:33:55 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 15:35:46 by acourtin         ###   ########.fr       */
+/*   Created: 2018/01/07 15:39:42 by acourtin          #+#    #+#             */
+/*   Updated: 2018/01/07 15:39:44 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void			color_pix(t_mlx *smlx, int i, float pix[2])
 **		c:		tmp of x y and z
 */
 
-static void			*draw_mandelbrot(t_mlx *smlx)
+static void			*draw_julia(t_mlx *smlx)
 {
 	t_mandelbrot		m;
 
@@ -68,7 +68,7 @@ static int			mouseevent(int button, int x, int y, t_mlx *smlx)
 	if (button == MOUSE_WHEEL_UP || button == MOUSE_WHEEL_DOWN)
 	{
 		fr_clear_window(smlx, 0x00000000);
-		draw_mandelbrot(smlx);
+		draw_julia(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	}
 	return (0);
@@ -95,18 +95,18 @@ static int			keyevent(int keycode, t_mlx *smlx)
 		|| keycode == BUTTON_Q || keycode == BUTTON_E)
 	{
 		fr_clear_window(smlx, 0x00000000);
-		draw_mandelbrot(smlx);
+		draw_julia(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	}
 	return (0);
 }
 
-void				fr_mandelbrot(t_mlx *smlx)
+void				fr_julia(t_mlx *smlx)
 {
 	smlx->offset_x = -250.0;
 	smlx->offset_y = 0.0;
 	smlx->zoom = 400.0;
-	draw_mandelbrot(smlx);
+	draw_julia(smlx);
 	mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	mlx_hook(smlx->win, 2, 0, keyevent, (void*)smlx);
 	mlx_mouse_hook(smlx->win, mouseevent, (void*)smlx);

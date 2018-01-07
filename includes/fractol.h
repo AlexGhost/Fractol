@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 15:21:10 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/07 15:36:03 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void				fr_create_window(int mode);
 void				fr_clear_window(t_mlx *smlx, int color);
 void				fr_colormania(t_mlx *smlx);
 void				fr_mandelbrot(t_mlx *smlx);
+void				fr_julia(t_mlx *smlx);
 void				fr_pong(t_mlx *smlx);
 void				fr_keypong(t_mlx *smlx);
 
