@@ -6,16 +6,11 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:33:55 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 15:35:46 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/07 16:42:09 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-
-/*
-** start color:	003366
-** end color:	FFFFFF
-*/
 
 static void			color_pix(t_mlx *smlx, int i, float pix[2])
 {
@@ -29,7 +24,7 @@ static void			color_pix(t_mlx *smlx, int i, float pix[2])
 /*
 **		pix:	each pixel on screen
 **		z:		pixel that determine the fractal
-**		c:		tmp of x y and z
+**		tmp:	tmp of x y and z
 */
 
 static void			*draw_mandelbrot(t_mlx *smlx)
