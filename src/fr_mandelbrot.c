@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:33:55 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 15:18:56 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/07 15:21:43 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static void			*draw_mandelbrot(t_mlx *smlx)
 
 static int			mouseevent(int button, int x, int y, t_mlx *smlx)
 {
-	if (button == 5)
+	if (button == MOUSE_WHEEL_UP)
 		smlx->zoom /= 1.1;
-	else if (button == 4)
+	else if (button == MOUSE_WHEEL_DOWN)
 		smlx->zoom *= 1.1;
-	if (button == 4 || button == 5)
+	if (button == MOUSE_WHEEL_UP || button == MOUSE_WHEEL_DOWN)
 	{
 		fr_clear_window(smlx, 0x00000000);
 		draw_mandelbrot(smlx);

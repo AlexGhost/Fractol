@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 14:58:13 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/07 15:21:10 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define BUTTON_ARROW_RIGHT 124
 # define BUTTON_ARROW_DOWN 125
 # define BUTTON_ARROW_LEFT 123
+# define MOUSE_WHEEL_UP 5
+# define MOUSE_WHEEL_DOWN 4
 
 typedef struct		s_mlx
 {
