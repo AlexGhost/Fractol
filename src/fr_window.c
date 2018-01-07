@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:29:23 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 15:37:44 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/07 18:25:56 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void			fr_create_window(int mode)
 	else if (mode == 1)
 		fr_mandelbrot(&smlx);
 	else if (mode == 2)
+		fr_julia(&smlx);
+	else if (mode == 3)
 		fr_julia(&smlx);
 	else if (mode == 4)
 		fr_pong(&smlx);
