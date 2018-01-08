@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fr_mandelbrot.c                                    :+:      :+:    :+:   */
+/*   fr_burningship.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/18 14:33:55 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/08 17:59:22 by acourtin         ###   ########.fr       */
+/*   Created: 2018/01/08 17:23:09 by acourtin          #+#    #+#             */
+/*   Updated: 2018/01/08 18:03:18 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void			color_pix(t_mlx *smlx, int i, float pix[2])
 		smlx->imgstr[(int)pix[0] + ((int)pix[1] * WIN_WIDTH)] = 0x00000000;
 	else
 		smlx->imgstr[(int)pix[0] + ((int)pix[1] * WIN_WIDTH)] = \
-			0x00000000 - (i * 0x00FFFFFF) * 20;
+			0x00000000 - (i * 0x00FF0000) * 20;
 }
 
 /*
@@ -27,7 +27,7 @@ static void			color_pix(t_mlx *smlx, int i, float pix[2])
 **		tmp:	tmp of x y and z
 */
 
-static void			*draw_mandelbrot(t_mlx *smlx)
+static void			*draw_burningship(t_mlx *smlx)
 {
 	t_mandelbrot		m;
 
@@ -46,8 +46,8 @@ static void			*draw_mandelbrot(t_mlx *smlx)
 		while (++m.iter < NB_ITERATION && m.z[0] * m.z[0] + m.z[1] * m.z[1] < 4)
 		{
 			m.tmp[2] = m.z[0];
-			m.z[0] = m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0];
-			m.z[1] = 2 * m.tmp[2] * m.z[1] + m.tmp[1];
+			m.z[0] = fabs(m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0]);
+			m.z[1] = fabs(2 * m.tmp[2] * m.z[1] + m.tmp[1]);
 		}
 		color_pix(smlx, m.iter, m.pix);
 	}
@@ -63,7 +63,7 @@ static int			mouseevent(int button, int x, int y, t_mlx *smlx)
 	if (button == MOUSE_WHEEL_UP || button == MOUSE_WHEEL_DOWN)
 	{
 		fr_clear_window(smlx, 0x00000000);
-		draw_mandelbrot(smlx);
+		draw_burningship(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	}
 	return (0);
@@ -87,18 +87,18 @@ static int			keyevent(int keycode, t_mlx *smlx)
 		|| keycode == BUTTON_D || keycode == BUTTON_Q || keycode == BUTTON_E)
 	{
 		fr_clear_window(smlx, 0x00000000);
-		draw_mandelbrot(smlx);
+		draw_burningship(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	}
 	return (0);
 }
 
-void				fr_mandelbrot(t_mlx *smlx)
+void				fr_burningship(t_mlx *smlx)
 {
-	smlx->offset_x = -250.0;
-	smlx->offset_y = 0.0;
-	smlx->zoom = 400.0;
-	draw_mandelbrot(smlx);
+	smlx->offset_x = -700.0;
+	smlx->offset_y = -10.0;
+	smlx->zoom = 10000.0;
+	draw_burningship(smlx);
 	mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	mlx_hook(smlx->win, 2, 0, keyevent, (void*)smlx);
 	mlx_mouse_hook(smlx->win, mouseevent, (void*)smlx);
