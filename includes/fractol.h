@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 17:32:51 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/08 14:56:10 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
 # include <math.h>
-# include <pthread.h>
 
 # define WIN_WIDTH 1400
 # define WIN_HEIGHT 1000

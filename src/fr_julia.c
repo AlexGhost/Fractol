@@ -6,12 +6,11 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 15:39:42 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 18:21:17 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/08 15:01:31 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-#include <stdio.h>
 
 static void			color_pix(t_mlx *smlx, int i, float pix[2])
 {
@@ -75,10 +74,8 @@ static int			trackevent(int x, int y, t_mlx *smlx)
 {
 	if (smlx->block_view == 0)
 	{
-		printf("x: %i, y: %i\n", x, y);
-		smlx->varx = x * 0.001;
+		smlx->varx = (x - 1000) * 0.001;
 		smlx->vary = y * 0.0001;
-		printf("x: %f, y: %f\n", smlx->varx, smlx->vary);
 		fr_clear_window(smlx, 0x00000000);
 		fr_draw_julia(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
