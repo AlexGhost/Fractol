@@ -6,19 +6,19 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 15:39:42 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/08 15:01:31 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/08 16:19:46 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-static void			color_pix(t_mlx *smlx, int i, float pix[2])
+static void			color_pix(t_mlx *smlx, float i, float pix[2])
 {
 	if (i == NB_ITERATION)
-		smlx->imgstr[(int)pix[0] + ((int)pix[1] * WIN_WIDTH)] = 0x00000000;
+		smlx->imgstr[(int)pix[0] + ((int)pix[1] * WIN_WIDTH)] = 0x000A0A0A;
 	else
 		smlx->imgstr[(int)pix[0] + ((int)pix[1] * WIN_WIDTH)] = \
-			0x00D0D0D0 * (i / 2);
+			0x00D0D0D0 * (i / smlx->actual_color);
 }
 
 /*
@@ -27,7 +27,7 @@ static void			color_pix(t_mlx *smlx, int i, float pix[2])
 **		tmp:	tmp of x y and z
 */
 
-void				*fr_draw_julia(t_mlx *smlx)
+void				fr_draw_julia(t_mlx *smlx)
 {
 	t_mandelbrot			m;
 
@@ -51,7 +51,6 @@ void				*fr_draw_julia(t_mlx *smlx)
 		}
 		color_pix(smlx, m.iter, m.pix);
 	}
-	return (NULL);
 }
 
 static int			mouseevent(int button, int x, int y, t_mlx *smlx)
@@ -91,6 +90,7 @@ void				fr_julia(t_mlx *smlx)
 	smlx->varx = 0.285;
 	smlx->vary = 0.01;
 	smlx->block_view = 1;
+	smlx->actual_color = 16;
 	fr_draw_julia(smlx);
 	mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	mlx_hook(smlx->win, 2, 0, fr_keyevent_julia, (void*)smlx);

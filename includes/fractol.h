@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/08 15:09:01 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/08 16:20:03 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define BUTTON_Q 12
 # define BUTTON_E 14
 # define BUTTON_B 11
+# define BUTTON_C 8
 # define BUTTON_ARROW_UP 126
 # define BUTTON_ARROW_RIGHT 124
 # define BUTTON_ARROW_DOWN 125
@@ -55,8 +56,8 @@ typedef struct		s_mlx
 
 typedef struct		s_mandelbrot
 {
-	int				iter;
 	int				actual_pix;
+	float			iter;
 	float			pix[2];
 	float			z[2];
 	float			tmp[3];
@@ -85,7 +86,8 @@ void				fr_mandelbrot(t_mlx *smlx);
 void				fr_julia(t_mlx *smlx);
 void				fr_pong(t_mlx *smlx);
 void				fr_keypong(t_mlx *smlx);
-void				*fr_draw_julia(t_mlx *smlx);
+void				fr_draw_julia(t_mlx *smlx);
 int					fr_keyevent_julia(int keycode, t_mlx *smlx);
+void				fr_change_color(int *color);
 
 #endif
