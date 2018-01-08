@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:34:34 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/07 18:28:21 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/08 15:16:27 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int				main(int ac, char **av)
 
 	if (ac != 2)
 		write_usage();
-	mode = ft_atoi(av[1]);
+	mode = -1;
+	if (ft_isdigit(av[1][0]) == 1)
+		mode = ft_atoi(av[1]);
 	if (mode < 0 || mode > 5)
 		write_usage();
 	ft_putendl("--- Welcome to Fractolol ---");
