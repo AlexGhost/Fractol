@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 12:01:14 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/10 13:51:26 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 13:56:20 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void			drawball(t_pong *pong, int x, int y, int color)
 			0, 0);
 }
 
-static int			mouseevent(int x, int y, int button, t_pong *pong)
+static int			mouseevent(int x, int y)
 {
 	ft_putstr("mouse x: ");
 	ft_putnbr(x);

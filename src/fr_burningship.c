@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:23:09 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/08 18:03:18 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 13:58:27 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void			*draw_burningship(t_mlx *smlx)
 
 static int			mouseevent(int button, int x, int y, t_mlx *smlx)
 {
+	x = 0;
+	y = 0;
 	if (button == MOUSE_WHEEL_UP)
 		smlx->zoom /= 1.1;
 	else if (button == MOUSE_WHEEL_DOWN)
