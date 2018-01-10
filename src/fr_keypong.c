@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 12:01:14 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/05 15:36:06 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 13:51:26 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ static int			keyevent(int keycode, t_pong *pong)
 		ft_putendl("fractol shutting down");
 		exit(0);
 	}
-	else if (keycode == BUTTON_ARROW_UP && pong->bally > 15)
+	else if (keycode == BUTTON_W && pong->bally > 15)
 		pong->d_y = -10;
-	else if (keycode == BUTTON_ARROW_DOWN && pong->bally < WIN_HEIGHT - 15)
+	else if (keycode == BUTTON_S && pong->bally < WIN_HEIGHT - 15)
 		pong->d_y = 10;
-	else if (keycode == BUTTON_ARROW_LEFT && pong->ballx > 15)
+	else if (keycode == BUTTON_A && pong->ballx > 15)
 		pong->d_x = -10;
-	else if (keycode == BUTTON_ARROW_RIGHT && pong->ballx < WIN_WIDTH - 15)
+	else if (keycode == BUTTON_D && pong->ballx < WIN_WIDTH - 15)
 		pong->d_x = 10;
 	drawball(pong, pong->ballx, pong->bally, 0x00FFFFFF);
 	drawball(pong, pong->ballx + pong->d_x, pong->bally + pong->d_y, \
