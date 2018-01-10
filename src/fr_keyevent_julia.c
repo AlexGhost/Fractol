@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 17:26:56 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/08 16:23:45 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 16:28:30 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void		draw_julia(t_mlx *smlx)
 {
 	fr_clear_window(smlx, 0x00000000);
-	fr_draw_julia(smlx);
+	fr_create_threads(smlx);
 	mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 }
 

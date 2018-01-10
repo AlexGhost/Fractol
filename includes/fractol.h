@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/10 15:09:27 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 16:39:06 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
 # include <math.h>
+# include <pthread.h>
 
 # define WIN_WIDTH 1400
 # define WIN_HEIGHT 1000
 # define NB_ITERATION 50
+# define NB_THREADS 512
 # define BUTTON_ESCAPE 53
 # define BUTTON_W 13
 # define BUTTON_D 2
@@ -73,6 +75,13 @@ typedef struct		s_mandelbrot
 	float			tmp[3];
 }					t_mandelbrot;
 
+typedef struct		s_thread
+{
+	t_mlx			*smlx;
+	int				pix_start;
+	int				pix_end;
+}					t_thread;
+
 typedef struct		s_img
 {
 	int				bpp;
@@ -93,12 +102,15 @@ void				fr_create_window(int mode);
 void				fr_clear_window(t_mlx *smlx, int color);
 void				fr_colormania(t_mlx *smlx);
 void				fr_mandelbrot(t_mlx *smlx);
+void				*fr_draw_mandelbrot(void *arg);
 void				fr_julia(t_mlx *smlx);
+void				*fr_draw_julia(void *arg);
 void				fr_burningship(t_mlx *smlx);
+void				*fr_draw_burningship(void *arg);
 void				fr_pong(t_mlx *smlx);
 void				fr_keypong(t_mlx *smlx);
-void				fr_draw_julia(t_mlx *smlx);
 int					fr_keyevent_julia(int keycode, t_mlx *smlx);
 void				fr_change_color(int *color);
+void				fr_create_threads(t_mlx *smlx);
 
 #endif

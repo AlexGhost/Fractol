@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 15:39:42 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/10 14:26:11 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 16:27:11 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,23 @@ static void			color_pix(t_mlx *smlx, float i, int pix)
 **		tmp:	tmp of x y and z
 */
 
-void				fr_draw_julia(t_mlx *smlx)
+void				*fr_draw_julia(void *arg)
 {
-	t_mandelbrot			m;
+	t_thread			*sthread;
+	t_mandelbrot		m;
 
-	m.actual_pix = -1;
-	while (++m.actual_pix < (WIN_WIDTH * WIN_HEIGHT))
+	sthread = (t_thread*)arg;
+	m.actual_pix = sthread->pix_start - 1;
+	while (++m.actual_pix < sthread->pix_end)
 	{
 		m.pix[0] = m.actual_pix % WIN_WIDTH;
 		m.pix[1] = m.actual_pix / WIN_WIDTH;
-		m.z[0] = (m.pix[0] + smlx->offset_x * smlx->zoom / 400 \
-				- (WIN_WIDTH / 2.0)) / smlx->zoom;
-		m.z[1] = (m.pix[1] + smlx->offset_y * smlx->zoom / 400 \
-				- (WIN_HEIGHT / 2.0)) / smlx->zoom;
-		m.tmp[0] = smlx->varx;
-		m.tmp[1] = smlx->vary;
+		m.z[0] = (m.pix[0] + sthread->smlx->offset_x * sthread->smlx->zoom \
+				/ 400 - (WIN_WIDTH / 2.0)) / sthread->smlx->zoom;
+		m.z[1] = (m.pix[1] + sthread->smlx->offset_y * sthread->smlx->zoom \
+				/ 400 - (WIN_HEIGHT / 2.0)) / sthread->smlx->zoom;
+		m.tmp[0] = sthread->smlx->varx;
+		m.tmp[1] = sthread->smlx->vary;
 		m.iter = -1;
 		while (++m.iter < NB_ITERATION && m.z[0] * m.z[0] + m.z[1] * m.z[1] < 4)
 		{
@@ -48,8 +50,9 @@ void				fr_draw_julia(t_mlx *smlx)
 			m.z[0] = m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0];
 			m.z[1] = 2 * m.tmp[2] * m.z[1] + m.tmp[1];
 		}
-		color_pix(smlx, m.iter, m.actual_pix);
+		color_pix(sthread->smlx, m.iter, m.actual_pix);
 	}
+	return (NULL);
 }
 
 static int			mouseevent(int button, int x, int y, t_mlx *smlx)
@@ -64,7 +67,7 @@ static int			mouseevent(int button, int x, int y, t_mlx *smlx)
 			|| button == MOUSE_LEFT || button == MOUSE_RIGHT)
 	{
 		fr_clear_window(smlx, 0x00000000);
-		fr_draw_julia(smlx);
+		fr_create_threads(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	}
 	return (0);
@@ -77,7 +80,7 @@ static int			trackevent(int x, int y, t_mlx *smlx)
 		smlx->varx = (x - 1000) * 0.001;
 		smlx->vary = y * 0.0001;
 		fr_clear_window(smlx, 0x00000000);
-		fr_draw_julia(smlx);
+		fr_create_threads(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	}
 	return (0);
@@ -92,7 +95,7 @@ void				fr_julia(t_mlx *smlx)
 	smlx->vary = 0.01;
 	smlx->block_view = 1;
 	smlx->actual_color = 16;
-	fr_draw_julia(smlx);
+	fr_create_threads(smlx);
 	mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	mlx_hook(smlx->win, 2, 0, fr_keyevent_julia, (void*)smlx);
 	mlx_mouse_hook(smlx->win, mouseevent, (void*)smlx);

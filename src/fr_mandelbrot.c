@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:33:55 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/10 14:26:26 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 16:20:37 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,21 @@ static void			color_pix(t_mlx *smlx, int i, int pix)
 **		tmp:	tmp of x y and z
 */
 
-static void			draw_mandelbrot(t_mlx *smlx)
+void				*fr_draw_mandelbrot(void *arg)
 {
+	t_thread			*sthread;
 	t_mandelbrot		m;
 
-	m.actual_pix = -1;
-	while (++m.actual_pix < (WIN_WIDTH * WIN_HEIGHT))
+	sthread = (t_thread*)arg;
+	m.actual_pix = sthread->pix_start - 1;
+	while (++m.actual_pix < sthread->pix_end)
 	{
 		m.pix[0] = m.actual_pix % WIN_WIDTH;
 		m.pix[1] = m.actual_pix / WIN_WIDTH;
-		m.z[0] = (m.pix[0] + smlx->offset_x * smlx->zoom / 400 \
-				- (WIN_WIDTH / 2.0)) / smlx->zoom;
-		m.z[1] = (m.pix[1] + smlx->offset_y * smlx->zoom / 400 \
-				- (WIN_HEIGHT / 2.0)) / smlx->zoom;
+		m.z[0] = (m.pix[0] + sthread->smlx->offset_x * sthread->smlx->zoom \
+				/ 400 - (WIN_WIDTH / 2.0)) / sthread->smlx->zoom;
+		m.z[1] = (m.pix[1] + sthread->smlx->offset_y * sthread->smlx->zoom \
+				/ 400 - (WIN_HEIGHT / 2.0)) / sthread->smlx->zoom;
 		m.tmp[0] = m.z[0];
 		m.tmp[1] = m.z[1];
 		m.iter = -1;
@@ -48,8 +50,9 @@ static void			draw_mandelbrot(t_mlx *smlx)
 			m.z[0] = m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0];
 			m.z[1] = 2 * m.tmp[2] * m.z[1] + m.tmp[1];
 		}
-		color_pix(smlx, m.iter, m.actual_pix);
+		color_pix(sthread->smlx, m.iter, m.actual_pix);
 	}
+	return (NULL);
 }
 
 static int			mouseevent(int button, int x, int y, t_mlx *smlx)
@@ -63,7 +66,7 @@ static int			mouseevent(int button, int x, int y, t_mlx *smlx)
 	if (button == MOUSE_WHEEL_UP || button == MOUSE_WHEEL_DOWN)
 	{
 		fr_clear_window(smlx, 0x00000000);
-		draw_mandelbrot(smlx);
+		fr_create_threads(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	}
 	return (0);
@@ -87,7 +90,7 @@ static int			keyevent(int keycode, t_mlx *smlx)
 		|| keycode == BUTTON_D || keycode == BUTTON_Q || keycode == BUTTON_E)
 	{
 		fr_clear_window(smlx, 0x00000000);
-		draw_mandelbrot(smlx);
+		fr_create_threads(smlx);
 		mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	}
 	return (0);
@@ -98,7 +101,7 @@ void				fr_mandelbrot(t_mlx *smlx)
 	smlx->offset_x = -250.0;
 	smlx->offset_y = 0.0;
 	smlx->zoom = 400.0;
-	draw_mandelbrot(smlx);
+	fr_create_threads(smlx);
 	mlx_put_image_to_window(smlx->mlx, smlx->win, smlx->img, 0, 0);
 	mlx_hook(smlx->win, 2, 0, keyevent, (void*)smlx);
 	mlx_mouse_hook(smlx->win, mouseevent, (void*)smlx);
