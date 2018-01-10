@@ -6,19 +6,18 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:23:09 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/10 13:58:27 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 14:25:58 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-static void			color_pix(t_mlx *smlx, int i, float pix[2])
+static void			color_pix(t_mlx *smlx, int i, int pix)
 {
 	if (i == NB_ITERATION)
-		smlx->imgstr[(int)pix[0] + ((int)pix[1] * WIN_WIDTH)] = 0x00000000;
+		smlx->imgstr[pix] = 0x00000000;
 	else
-		smlx->imgstr[(int)pix[0] + ((int)pix[1] * WIN_WIDTH)] = \
-			0x00000000 - (i * 0x00FF0000) * 20;
+		smlx->imgstr[pix] = 0x00000000 - (i * 0x00FF0000) * 20;
 }
 
 /*
@@ -27,7 +26,7 @@ static void			color_pix(t_mlx *smlx, int i, float pix[2])
 **		tmp:	tmp of x y and z
 */
 
-static void			*draw_burningship(t_mlx *smlx)
+static void			draw_burningship(t_mlx *smlx)
 {
 	t_mandelbrot		m;
 
@@ -49,9 +48,8 @@ static void			*draw_burningship(t_mlx *smlx)
 			m.z[0] = fabs(m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0]);
 			m.z[1] = fabs(2 * m.tmp[2] * m.z[1] + m.tmp[1]);
 		}
-		color_pix(smlx, m.iter, m.pix);
+		color_pix(smlx, m.iter, m.actual_pix);
 	}
-	return (NULL);
 }
 
 static int			mouseevent(int button, int x, int y, t_mlx *smlx)

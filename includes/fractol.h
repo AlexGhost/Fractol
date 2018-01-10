@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 19:22:05 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/08 17:33:27 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 15:09:27 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@
 # define MOUSE_RIGHT 2
 # define MOUSE_WHEEL_UP 5
 # define MOUSE_WHEEL_DOWN 4
+
+typedef enum		e_mode
+{
+	MANDELBROT = 1,
+	JULIA = 2,
+	SHIP = 3,
+	COLOR = 333,
+	PONG = 444,
+	KEYPONG = 555
+}					t_mode;
 
 typedef struct		s_mlx
 {

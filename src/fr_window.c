@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:29:23 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/10 13:48:16 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 15:07:27 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,17 @@ void			fr_create_window(int mode)
 	fractol_init(&smlx, &i, mode);
 	mlx_key_hook(smlx.win, keyevent, 0);
 	mlx_hook(smlx.win, 17, 17, exitfractol, 0);
-	if (mode == 1)
+	if (mode == MANDELBROT)
 		fr_mandelbrot(&smlx);
-	else if (mode == 2)
+	else if (mode == JULIA)
 		fr_julia(&smlx);
-	else if (mode == 3)
+	else if (mode == SHIP)
 		fr_burningship(&smlx);
-	else if (mode == 333)
+	else if (mode == COLOR)
 		fr_colormania(&smlx);
-	else if (mode == 444)
+	else if (mode == PONG)
 		fr_pong(&smlx);
-	else if (mode == 555)
+	else if (mode == KEYPONG)
 		fr_keypong(&smlx);
 	mlx_loop(smlx.mlx);
 }

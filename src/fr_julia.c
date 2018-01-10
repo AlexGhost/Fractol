@@ -6,19 +6,18 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 15:39:42 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/10 13:57:41 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 14:26:11 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-static void			color_pix(t_mlx *smlx, float i, float pix[2])
+static void			color_pix(t_mlx *smlx, float i, int pix)
 {
 	if (i == NB_ITERATION)
-		smlx->imgstr[(int)pix[0] + ((int)pix[1] * WIN_WIDTH)] = 0x000A0A0A;
+		smlx->imgstr[pix] = 0x000A0A0A;
 	else
-		smlx->imgstr[(int)pix[0] + ((int)pix[1] * WIN_WIDTH)] = \
-			0x00D0D0D0 * (i / smlx->actual_color);
+		smlx->imgstr[pix] = 0x00D0D0D0 * (i / smlx->actual_color);
 }
 
 /*
@@ -49,7 +48,7 @@ void				fr_draw_julia(t_mlx *smlx)
 			m.z[0] = m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0];
 			m.z[1] = 2 * m.tmp[2] * m.z[1] + m.tmp[1];
 		}
-		color_pix(smlx, m.iter, m.pix);
+		color_pix(smlx, m.iter, m.actual_pix);
 	}
 }
 
