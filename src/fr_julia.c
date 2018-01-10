@@ -6,7 +6,7 @@
 /*   By: acourtin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 15:39:42 by acourtin          #+#    #+#             */
-/*   Updated: 2018/01/10 16:27:11 by acourtin         ###   ########.fr       */
+/*   Updated: 2018/01/10 17:37:40 by acourtin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ void				*fr_draw_julia(void *arg)
 				/ 400 - (WIN_WIDTH / 2.0)) / sthread->smlx->zoom;
 		m.z[1] = (m.pix[1] + sthread->smlx->offset_y * sthread->smlx->zoom \
 				/ 400 - (WIN_HEIGHT / 2.0)) / sthread->smlx->zoom;
-		m.tmp[0] = sthread->smlx->varx;
-		m.tmp[1] = sthread->smlx->vary;
 		m.iter = -1;
 		while (++m.iter < NB_ITERATION && m.z[0] * m.z[0] + m.z[1] * m.z[1] < 4)
 		{
 			m.tmp[2] = m.z[0];
-			m.z[0] = m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0];
-			m.z[1] = 2 * m.tmp[2] * m.z[1] + m.tmp[1];
+			m.z[0] = m.z[0] * m.z[0] - m.z[1] * m.z[1] + sthread->smlx->varx;
+			m.z[1] = 2 * m.tmp[2] * m.z[1] + sthread->smlx->vary;
 		}
 		color_pix(sthread->smlx, m.iter, m.actual_pix);
 	}
