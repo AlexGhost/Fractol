@@ -19,9 +19,9 @@
 # include <pthread.h>
 
 # define WIN_WIDTH 1400
-# define WIN_HEIGHT 1000
+# define WIN_HEIGHT 800
 # define NB_ITERATION 50
-# define NB_THREADS 512
+# define NB_THREADS 4
 # define BUTTON_ESCAPE 53
 # define BUTTON_W 13
 # define BUTTON_D 2
